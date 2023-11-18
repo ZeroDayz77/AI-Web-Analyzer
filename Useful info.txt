@@ -1,0 +1,7 @@
+ravi_ramkissoon@yahoo.com
+gseyon@gmail.com
+
+-get semantic data text and remove tags
+-open ai api and chatgpt
+-keep in mind atomic commits and besy practises.
+-if there is time can write up technical docs
