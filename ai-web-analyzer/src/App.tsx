@@ -4,7 +4,7 @@ import axios from 'axios';
 function App() {
   const [message, setMessage] = useState('');
   const [websiteURL, setWebsiteURL] = useState('');
-  const [data, setData] = useState<string>('');
+  // const [data, setData] = useState<string>('');
 
   useEffect(() => {
     axios.get('http://localhost:5000/')
@@ -12,30 +12,40 @@ function App() {
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
-  useEffect(() => {
-    const apiUrl = 'http://localhost:5000/api/data';
-    axios.get(apiUrl)
-      .then(response => setData(JSON.stringify(response.data)))
-      .catch(error => console.error('Error fetching data:', error));
-  }, []);
+  // useEffect(() => {
+  //   const apiUrl = 'http://localhost:5000/api/data';
+  //   axios.get(apiUrl)
+  //     .then(response => setData(JSON.stringify(response.data)))
+  //     .catch(error => console.error('Error fetching data:', error));
+  // }, []);
 
-  const handleFormSubmit = async (event) => {
+  const handleWebsiteSubmit = async (event) => {
     event.preventDefault();
 
+    setMessage("Currently finding all webpages... please hold...")
+
     try {
-      const apiUrl = 'http://localhost:5000/api/add_data';
+      const apiUrl = 'http://localhost:5000/api/add_website';
 
       // Make a POST request to add data
-      await axios.post(apiUrl, { websiteURL });
+      await axios.post(apiUrl, { site: websiteURL })
+      .then(response => setMessage(response.data.message));
 
       setWebsiteURL('');
 
       // Fetch updated data after adding new data
-      const updatedData = await axios.get('http://localhost:5000/api/data');
-      setData(JSON.stringify(updatedData.data));
-    } catch (error) {
+      // const updatedData = await axios.get('http://localhost:5000/api/data');
+      // setData(JSON.stringify(updatedData.data));
+    } 
+    catch (error) {
       console.error('Error submitting form:', error);
     }
+  };
+
+  const handleSummarySubmit = async (event) => {
+    event.preventDefault();
+    alert("Summarized page info :)")
+    // TODO: add check to ensure that a website is loaded before this function can run, a simple boolean value can work.
   };
 
   return (
@@ -43,7 +53,8 @@ function App() {
       <div>
         <h1>AI Web Analyzer</h1>
         <h2>Website URL</h2>
-        <form onSubmit={handleFormSubmit}> {/*TODO: use Post later on when pushing to DB*/}
+        <p>{message}</p>
+        <form onSubmit={handleWebsiteSubmit}> {/*TODO: use Post later on when pushing to DB*/}
           <input 
             id='websiteURL' 
             type="text" 
@@ -53,8 +64,17 @@ function App() {
           />
           <input type="submit" value="Submit"></input>
         </form>
-        <p>{message}</p>
-        <p>{data}</p>
+        <h2>Summary URL</h2>
+        <form onSubmit={handleSummarySubmit}> {/*TODO: use Post later on when pushing to DB*/}
+          <input 
+            id='websiteURL' 
+            type="text" 
+            placeholder="Enter your desired website here" 
+            value={websiteURL} 
+            onChange={event => setWebsiteURL(event.target.value)}
+          />
+          <input type="submit" value="Submit"></input>
+        </form>
       </div>
     </>
   );
