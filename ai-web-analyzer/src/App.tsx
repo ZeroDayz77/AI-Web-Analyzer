@@ -23,7 +23,7 @@ function App() {
   //     .catch(error => console.error('Error fetching data:', error));
   // }, []);
 
-  const handleWebsiteSubmit = async (event) => {
+  const handleWebsiteSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     setMessage("Currently finding all webpages... please hold...")
@@ -48,7 +48,7 @@ function App() {
     }
   };
 
-  const handleSummarySubmit = async (event) => {
+  const handleSummarySubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     console.log(isLoaded)
