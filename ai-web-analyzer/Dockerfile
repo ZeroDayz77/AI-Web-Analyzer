@@ -13,7 +13,7 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-# Build the React app
+# Run the Vite build
 RUN npm run build
 
 # Specify the command to run on container start

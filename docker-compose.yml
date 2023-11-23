@@ -1,0 +1,24 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: ./ai-web-analyzer/Dockerfile
+    ports:
+      - "80:80"
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./ai-web-analyzer-backend/Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    build:
+      context: .
+      dockerfile: ./ai-web-analyzer-database/Dockerfile
+    ports:
+      - "27017:27017"

@@ -8,7 +8,6 @@ function App() {
   const [summaryURL, setSummaryURL] = useState('');
 
   const [isLoaded, setLoaded] = useState(false);
-  // const [data, setData] = useState<string>('');
 
   useEffect(() => {
     axios.get('http://localhost:5000/')
@@ -16,12 +15,6 @@ function App() {
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
-  // useEffect(() => {
-  //   const apiUrl = 'http://localhost:5000/api/data';
-  //   axios.get(apiUrl)
-  //     .then(response => setData(JSON.stringify(response.data)))
-  //     .catch(error => console.error('Error fetching data:', error));
-  // }, []);
 
   const handleWebsiteSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -31,17 +24,11 @@ function App() {
     try {
       const apiUrl = 'http://localhost:5000/api/add_website';
 
-      // Make a POST request to add data
       await axios.post(apiUrl, { site: websiteURL })
       .then(response => setMessage(response.data.message));
 
       setWebsiteURL('');
       setLoaded(true)
-      console.log(isLoaded)
-
-      // Fetch updated data after adding new data
-      // const updatedData = await axios.get('http://localhost:5000/api/data');
-      // setData(JSON.stringify(updatedData.data));
     } 
     catch (error) {
       console.error('Error submitting form:', error);
@@ -51,28 +38,21 @@ function App() {
   const handleSummarySubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    console.log(isLoaded)
-
     if(isLoaded == false)
     {
       setSummaryURL('');
       alert("There is no website loaded, please load a website first...")
       return;
     }
-    // TODO: add check to ensure that a website is loaded before this function can run, a simple boolean value can work.
 
     try {
       const apiUrl = 'http://localhost:5000/api/website_summary';
 
-      // Make a POST request to add data
       await axios.post(apiUrl, { target_url: summaryURL })
       .then(response => setSummaryMessage(response.data.summary));
 
       setSummaryURL('');
 
-      // Fetch updated data after adding new data
-      // const updatedData = await axios.get('http://localhost:5000/api/data');
-      // setData(JSON.stringify(updatedData.data));
     } 
     catch (error) {
       console.error('Error submitting form:', error);
@@ -88,7 +68,7 @@ function App() {
         <main>
           <h2>Website URL</h2>
           <p>{message}</p>
-          <form onSubmit={handleWebsiteSubmit}> {/*TODO: use Post later on when pushing to DB*/}
+          <form onSubmit={handleWebsiteSubmit}>
             <input 
               id='websiteURL' 
               type="text" 
@@ -99,7 +79,7 @@ function App() {
             <input type="submit" value="Submit"></input>
           </form>
           <h2>Summary URL</h2>
-          <form onSubmit={handleSummarySubmit}> {/*TODO: use Post later on when pushing to DB*/}
+          <form onSubmit={handleSummarySubmit}>
             <input 
               id='summaryURL' 
               type="text" 
