@@ -21,7 +21,7 @@ Create an `OPENAI_API_KEY` environment variable and assign it to your personal O
 
 ### Run
 
-`source venv/Scripts/activate`
+`source venv/scripts/activate`
 
 `pip install -r requirements.txt`
 
@@ -35,7 +35,7 @@ in the root folder of the Database folder run the following commands to setup an
 ### Note
 You will need to have MongoDB installed locally on the desktop, by default the code is set to run and connect to the development DB `mongodb://localhost:27017/AI-Web-Analyzer` which has a collection `websites`
 
-In the folder it has the mock BD /data folder that was used with the development DB, to test if everything is fine, use MongoDB Compass or `mongosh` to check if the database is being received correctly on your local machine. If not you can simply edit the code in the Python file to reflect your own newly created databse or just follow the original schema.
+In the folder it has the mock DB /data folder that was used with the development DB. To test if everything is fine, use MongoDB Compass or `mongosh` to check if the database is being received correctly on your local machine. If not you can simply edit the code in the Python file to reflect your own newly created databse or just follow the original schema.
 
 ### Run
 
